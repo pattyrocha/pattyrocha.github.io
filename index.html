@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D One-Shot Workshop Presentation</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: sans-serif;
+            background-color: #f4f4f4; /* Light grey background */
+            color: #333;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        /* Presentation Container */
+        #presentation-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 20px;
+        }
+
+        /* Slide Content Area */
+        #slide-content {
+            background-color: #fff; /* White background for slide */
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px 40px;
+            width: 90%;
+            max-width: 800px; /* Limit width for readability */
+            height: 75%; /* Adjust as needed */
+            max-height: 600px;
+            overflow-y: auto; /* Allow scrolling if content overflows */
+            transition: opacity 0.3s ease-in-out; /* Fade transition */
+            opacity: 1;
+            display: flex; /* Use flex for layout */
+            flex-direction: column; /* Stack content vertically */
+        }
+
+        /* General Slide Content Styling */
+        #slide-content h2 {
+            margin-bottom: 20px;
+            color: #0056b3; /* Blue heading color */
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            flex-shrink: 0; /* Prevent headers from shrinking */
+            font-size: 1.8em; /* Default size for regular slide headers */
+        }
+
+        #slide-content h3 {
+            margin-top: 15px;
+            margin-bottom: 10px;
+            color: #333;
+             flex-shrink: 0;
+             font-size: 1.2em; /* Default h3 size */
+        }
+
+        #slide-content ul {
+            list-style-position: inside;
+            margin-left: 0;
+            padding-left: 0;
+             flex-shrink: 0;
+        }
+        /* Nested list styling */
+         #slide-content ul ul {
+             margin-left: 20px;
+             margin-top: 5px;
+         }
+         /* Adjust nested list style for exercise slide */
+        .exercise-points {
+            list-style-type: none; /* Remove default bullets */
+            padding-left: 5px;
+        }
+         .exercise-points li {
+             margin-bottom: 8px;
+         }
+
+
+        #slide-content li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+         #slide-content p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+             flex-shrink: 0;
+         }
+
+         /* Style for bold text within list items */
+         #slide-content li b, #slide-content p b, #slide-content dt { /* Added dt */
+             color: #333; /* Ensure bold text is clearly visible */
+             font-weight: bold;
+         }
+         /* Style for italic text */
+        #slide-content em, #slide-content i {
+            font-style: italic;
+        }
+
+
+         /* Blockquote styling */
+         #slide-content blockquote {
+             border-left: 3px solid #eee;
+             padding-left: 15px;
+             margin-left: 10px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+             font-style: italic;
+             color: #555;
+         }
+
+         /* --- Definition List Styling (for Demo slide) --- */
+        .prep-steps dt {
+            margin-top: 12px; /* Space above each term */
+            font-size: 1.05em;
+        }
+        .prep-steps dd {
+            margin-left: 20px; /* Indent description */
+            margin-bottom: 8px; /* Space below each description */
+            line-height: 1.5;
+            color: #444; /* Slightly lighter text for description */
+        }
+        /* Style for the flow line specifically */
+        .prep-steps dd code {
+            display: block; /* Make it its own line */
+            margin-top: 5px; /* Space above the flow line */
+            font-family: monospace; /* Monospace font for flow */
+            background-color: #f8f8f8; /* Slight background tint */
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 0.95em;
+        }
+
+        /* --- End Definition List Styling --- */
+
+
+        /* --- Reskin Table Styling --- */
+        .reskin-table {
+            width: 100%;
+            border-collapse: collapse; /* Remove double borders */
+            margin-top: 15px;
+            font-size: 0.95em; /* Adjust font size for table */
+        }
+        .reskin-table th,
+        .reskin-table td {
+            border: 1px solid #ddd; /* Light grey borders */
+            padding: 8px 10px; /* Add padding */
+            text-align: left;
+            vertical-align: top; /* Align text to top */
+        }
+        .reskin-table th {
+            background-color: #f2f2f2; /* Light grey header */
+            font-weight: bold;
+            color: #333;
+        }
+         .reskin-table td i { /* Style italic text */
+            color: #555;
+        }
+        /* --- End Reskin Table Styling --- */
+
+
+        /* --- Specific Title Slide Styling --- */
+        .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Vertically center the content */
+            align-items: center; /* Horizontally center */
+            text-align: center;
+            height: 100%;
+            flex-grow: 1;
+        }
+
+        /* Style for H1 on the main title slide */
+        .title-slide h1 {
+            font-size: 2.8em;
+            color: #0056b3;
+            margin-bottom: 25px; /* Space between title and host info */
+        }
+
+         /* Style for H2 when used within a title-slide (like the break slide) */
+        .title-slide h2 {
+            font-size: 2.5em; /* Make it prominent */
+            color: #0056b3;
+            /* Override general h2 styles */
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0; /* Reset margin if needed */
+        }
+
+        .host-info {
+            font-size: 1em;
+            color: #555;
+            /* No margin-top: auto needed for centered block */
+        }
+        /* --- End Title Slide Styling --- */
+
+
+        /* Navigation Controls */
+        #nav-controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between; /* Puts space between buttons and counter */
+            align-items: center; /* Vertically aligns items */
+            width: 90%;
+            max-width: 800px;
+        }
+
+        #nav-controls button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff; /* Blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+        }
+
+        #nav-controls button:hover:not(:disabled) {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        #nav-controls button:disabled {
+            background-color: #cccccc; /* Grey out disabled buttons */
+            cursor: not-allowed;
+        }
+
+        /* Styling for the slide counter */
+        #slide-counter {
+             font-size: 0.95em;
+             color: #555;
+             /* Optional: Add padding if needed, but space-between should handle spacing */
+             /* padding: 0 15px; */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+        <div id="slide-content">
+            </div>
+        <div id="nav-controls">
+            <button id="prev-btn">&lt; Previous</button>
+            <span id="slide-counter"></span> <button id="next-btn">Next &gt;</button>
+        </div>
+    </div>
+
+    <script>
+        const slides = [
+            // Slide 0: Title
+            `<div class="title-slide">
+                 <h1>D&D One-Shot Preparation Workshop</h1>
+                 <p class="host-info">Hosted by Patty - D&D Amsterdam</p>
+            </div>`,
+
+            // Slide 1: Agenda & Overview (Safety Added)
+            `<h2>Workshop Agenda & Overview</h2>
+             <p>Welcome! Over the next ~2 hours, we'll cover key strategies for preparing and running engaging D&D one-shots, using "The Cat's Mother" as our example.</p>
+             <br>
+             <ul>
+                <li><b>Introductions & Goals</b> (Learn principles, use pre-mades, practice reskinning)</li>
+                <li><b>Core Principles:</b> Pacing, Encounters, Flexibility</li>
+                <li><b>Using Pre-Mades:</b> Why & How</li>
+                <li><b>Example Intro:</b> "The Cat's Mother" Overview</li>
+                <li><b>Demo:</b> Quick Prep Walkthrough</li>
+                <li><b>Safety & Content</b> (Brief discussion)</li> <li><b>Break</b></li>
+                <li><b>Reskinning:</b> Technique & Example</li>
+                <li><b>Practice:</b> Start Your Reskin</li>
+                <li><b>Wrap-up & Q&A</b></li>
+             </ul>`,
+
+            // Slide 2: Key Themes Overview (Enriched)
+            `<h2>Key Themes for Managing Your One-Shot Effectively</h2>
+             <p>Running a one-shot presents unique challenges compared to a campaign. We'll focus on three key areas:</p>
+             <ul>
+                <li><b>Pacing & Flow:</b> Ensuring the story progresses satisfyingly within the limited time.</li>
+                <li><b>Encounter Design:</b> Creating memorable moments (combat and non-combat) without getting bogged down.</li>
+                <li><b>DM Flexibility:</b> Being ready to adapt and make quick decisions to keep the game moving smoothly.</li>
+             </ul>`,
+
+             // Slide 3: Theme 1 - Pacing & Flow (Enriched)
+            `<h2>Theme 1: Pacing & Flow</h2>
+             <h3>Keep the Story Moving</h3>
+             <ul>
+                <li><b>Short Time, Big Story:</b> Focus on hitting essential plot points. Don't be afraid to trim descriptions or non-critical interactions if time is tight.</li>
+                <li><b>Creating Shortcuts:</b> Have backup plans!
+                    <ul>
+                        <li>Flexible travel times (montages).</li>
+                        <li>NPCs who can offer guidance or intervene if players get stuck or go off track.</li>
+                        <li>Introduce external time pressure (e.g., ritual completes at midnight).</li>
+                    </ul>
+                </li>
+                <li><b>Providing Clues:</b> Ensure players get vital info.
+                    <ul>
+                        <li>Prepare multiple ways to discover key clues (different skills, locations, NPCs).</li>
+                        <li>Consider the "Three Clue Rule" - if players fail 2-3 attempts to find a critical clue, find a way to reveal it so the story doesn't stall.</li>
+                    </ul>
+                </li>
+             </ul>`,
+
+             // Slide 4: Theme 2 - Encounter Design (Enriched)
+            `<h2>Theme 2: Encounter Design</h2>
+             <h3>Impact over Quantity</h3>
+             <ul>
+                <li><b>Combat Limitations:</b> Aim for 1-3 maximum, truly impactful combats. One-shots often can't sustain numerous lengthy battles. Make them count!</li>
+                <li><b>Non-Combat Encounters:</b> Crucial for pacing and variety! Include elements like:
+                    <ul>
+                        <li>Puzzles (environmental, riddles).</li>
+                        <li>Social interactions (negotiations, interrogations, alliances).</li>
+                        <li>Skill challenges (chases, escaping traps, navigating hazards).</li>
+                        <li>Exploration with discoveries.</li>
+                    </ul>
+                </li>
+             </ul>`,
+
+             // Slide 5: Theme 3 - DM Flexibility (Enriched - Safety Modified)
+            `<h2>Theme 3: DM Flexibility</h2>
+             <h3>Adapt and Rule Quickly</h3>
+             <ul>
+                <li><b>Player Awareness & Adaptation:</b> Be ready to adjust difficulty or plot points "behind the screen" based on player actions, successes, or struggles. Is a fight too easy/hard? Did they miss a clue entirely? Adapt!</li>
+                <li><b>Player Comfort & Safety Tools:</b> Be mindful of player comfort. Use safety tools (like the X-Card) and be ready to adjust or 'fade to black' if content becomes uncomfortable.</li> <li><b>Rule Management:</b> Prioritize flow over perfect rule adherence.
+                    <ul>
+                        <li>Make quick, reasonable rulings if unsure of a specific rule. Look it up later.</li>
+                        <li>Avoid getting bogged down in rule debates during the session. Keep the momentum going!</li>
+                    </ul>
+                </li>
+             </ul>`,
+
+            // Slide 6: Why Pre-made? (Enriched)
+            `<h2>Why Go for a Pre-made One-Shot?</h2>
+             <ul>
+                <li><b>Benefits:</b>
+                    <ul>
+                        <li>Huge time saver compared to building from scratch.</li>
+                        <li>Provides a tested structure and (hopefully) balanced encounters.</li>
+                        <li>Offers clear plot progression.</li>
+                        <li>Great way to learn adventure design by example.</li>
+                    </ul>
+                 </li>
+                <li><b>How to Read/Understand:</b> Don't just read it like a novel! Actively break it down:
+                    <ul>
+                        <li>Identify the core plot / objective.</li>
+                        <li>Note key NPCs, locations, and planned encounters.</li>
+                        <li>Look for potential pitfalls or player choice points.</li>
+                        <li>Highlight critical clues, secrets, and monster stat blocks.</li>
+                    </ul>
+                 </li>
+             </ul>`,
+
+             // Slide 7: Example Overview (Condensed Hook, NPCs, Locations)
+            `<h2>Example: "The Cat's Mother" Overview</h2>
+             <p>Let's quickly introduce our example one-shot based on the provided materials:</p>
+             <div>
+                 <h3 style="margin-top: 15px; font-size: 1.1em;">The Hook</h3>
+                 <p>The party are hired as bodyguards by Ahonen Aleksi (NCS conservationist) to protect him while he observes a potentially birthing Sabre-Toothed Tiger in the frozen tundra near an NCS hut.</p>
+
+                 <h3 style="margin-top: 15px; font-size: 1.1em;">Key NPCs</h3>
+                 <ul>
+                     <li><b>Ahonen Aleksi:</b> Friendly Halfling conservationist (Scout).</li>
+                     <li><b>Belle Solis:</b> Elf (Scout) posing as conservationist, secretly a poacher.</li>
+                     <li><b>Seezar Milo:</b> Kobold poacher working with Belle.</li>
+                 </ul>
+
+                 <h3 style="margin-top: 15px; font-size: 1.1em;">Key Locations</h3>
+                 <ul>
+                     <li><b>Conservation Hut:</b> Starting base.</li>
+                     <li><b>Lake of Broken Ice:</b> Travel hazard with potential bear traps.</li>
+                     <li><b>Rocky Alcove:</b> Tiger's birthing spot and site of the final conflict.</li>
+                 </ul>
+             </div>`,
+
+            // Slide 8: Demonstration Prep (Reformatted)
+            `<h2>Demonstration: Prepping "The Cat's Mother"</h2>
+             <p>Now that we have an overview of the adventure's components, let's apply our prep steps <em>to</em> them:</p>
+             <dl class="prep-steps">
+                <dt>Structure Summary</dt>
+                <dd>Map the core flow using the 'Suggested Story' section:<br>
+                    <code>Meet -> Travel -> Polar Bear Encounter -> Cross Lake -> Find Mother -> Fight Poachers -> Camp</code>
+                </dd>
+
+                <dt>Essential Elements</dt>
+                <dd>List key NPCs (Ahonen, Belle, Seezar), locations (Hut, Lake, Alcove), & encounters (Trap Release, Poacher Fight).</dd>
+
+                <dt>Stats & DCs</dt>
+                <dd>Extract stats ('Quick Stats': Owl, Kobold, etc.). Prep likely DCs (Balance, Medicine, Perception).</dd>
+
+                <dt>Key Info & Secrets</dt>
+                <dd>Note rewards (Gold, Goggles, Gems) & list crucial 'Secrets' (Belle's betrayal, traps, motive).</dd>
+
+                <dt>Adaptation Ideas</dt>
+                <dd>Consider 'Harder' options (Gnolls, Spy, Wyvern) & player choices (Belle exposed early?).</dd>
+             </dl>`,
+
+            // Slide 9: Break
+             `<div class="title-slide">
+                  <h2>Break - 10 min</h2>
+              </div>`,
+
+            // Slide 10: Reskinning Intro (Simpler Examples Added - Safety Modified)
+            `<h2>Leveraging a Pre-made: Reskinning</h2>
+             <h3>What is Reskinning?</h3>
+             <p>Reskinning means taking the core mechanics, structure, pacing, and difficulty of an existing adventure (or elements like monsters, items, locations) and changing the theme and descriptions to make it fresh or fit your desired style.</p>
+             <p>It allows you to keep the proven "bones" while creating a new experience.</p>
+
+             <p style="margin-top:15px; font-weight:bold; color:#c00;">Important Note on Reskinning & Content:</p>
+             <p style="margin-left:15px;">When changing themes (e.g., from fantasy to horror), be mindful of potentially introducing sensitive topics. Consider using content warnings or discussing boundaries with your players beforehand.</p> <h3 style="margin-top: 15px;">Simple Examples</h3>
+             <ul>
+                 <li><b>Monster:</b> Orc (melee brute) &rarr; <em>Sci-Fi:</em> Security Robot (same stats).</li>
+                 <li><b>Location:</b> Dank Cave &rarr; <em>Sci-Fi:</em> Overgrown Service Tunnel.</li>
+                 <li><b>Item:</b> +1 Longsword &rarr; <em>Sci-Fi:</em> +1 Vibro-blade.</li>
+             </ul>
+             <p>The mechanics stay the same, only the flavor changes!</p>`,
+
+            // Slide 11: Reskinning Example (Table)
+            `<h2>Reskinning Example: Adventure</h2>
+             <p>Comparing original elements ("The Cat's Mother") to a possible full reskin:</p>
+             <table class="reskin-table">
+               <thead>
+                 <tr>
+                   <th>Element</th>
+                   <th>Original (Cat's Mother)</th>
+                   <th>Reskinned (Magical Forest)</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td>Setting</td>
+                   <td>Snowy tundra</td>
+                   <td>Magical forest</td>
+                 </tr>
+                 <tr>
+                   <td>Quest Giver</td>
+                   <td>Ahonen</td>
+                   <td>Druid Elara</td>
+                 </tr>
+                  <tr>
+                   <td>Antagonists</td>
+                   <td>Belle/Seezar (poachers)</td>
+                   <td>Dark Guild members</td>
+                 </tr>
+                  <tr>
+                   <td>Hook / Problem</td>
+                   <td>Polar Bear rescue</td>
+                   <td>Unicorn rescue</td>
+                 </tr>
+                  <tr>
+                   <td>Main Conflict</td>
+                   <td>Kobold/Gnoll attack</td>
+                   <td>Goblin/Orc attack</td>
+                 </tr>
+                  <tr>
+                   <td>Challenge</td>
+                   <td><i>(Implied by encounters)</i></td>
+                   <td><i>Keep similar DCs/stats</i></td>
+                 </tr>
+               </tbody>
+             </table>`,
+
+            // Slide 12: Reskinning Brainstorm (Meta Text Adjusted)
+            `<h2>Reskinning: Group Brainstorm</h2>
+             <p>Let's brainstorm some reskinning ideas together based on "The Cat's Mother":</p>
+             <ul>
+                 <li>Prompt 1: Add detail to the reskinned Druid NPC, Elara. What's her personality?</li>
+                 <li>Prompt 2: Suggest another completely different setting for this adventure structure. (e.g., Sci-fi?)</li>
+                 <li>Prompt 3: In that new setting, what could the 'Polar Bear Rescue' hook become?</li>
+             </ul>`,
+
+            // Slide 13: Practical Exercise (Aligned with Worksheet)
+            `<h2>Practical Exercise: Start Your Own Reskin</h2>
+             <ul>
+                 <li><b>Goal:</b> Begin outlining your own one-shot reskin using "The Cat's Mother" as a structural base.</li>
+                 <li><b>Activity:</b> Using the handout worksheet ("One-Shot Reskin Outline"), note down your initial ideas for the following sections:</li>
+                 <ul class="exercise-points">
+                     <li>1. Your New Theme & Setting</li>
+                     <li>2. Reskinned Quest Giver (Name, Concept)</li>
+                     <li>3. Reskinned Antagonists (Group, Motivation)</li>
+                     <li>4. Reskinned Initial Hook/Problem</li>
+                     <li>5. Reskinned Main Conflict (Description, Enemies)</li>
+                 </ul>
+                 <li>(Focus on capturing core ideas, not perfection!)</li>
+             </ul>`,
+
+            // Slide 14: Wrap-Up (Enriched)
+            `<h2>Wrap-Up & Closing</h2>
+             <ul>
+                 <li><b>Recap Key Takeaways:</b>
+                     <ul>
+                        <li>Managing Pacing is crucial for one-shots.</li>
+                        <li>Pre-made adventures save time; learn to dissect them quickly.</li>
+                        <li>Reskinning is a powerful tool for adapting pre-mades.</li>
+                     </ul>
+                 </li>
+                 <li>Final Questions & Discussion</li>
+                 <li>Additional Resources / Contact Info</li>
+                 <li>Thank you for participating!</li>
+             </ul>`
+        ];
+
+        let currentSlideIndex = 0;
+        const slideContentElement = document.getElementById('slide-content');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const slideCounterElement = document.getElementById('slide-counter'); // Get reference to counter element
+
+        function showSlide(index) {
+            if (index >= 0 && index < slides.length) {
+                // Fade out
+                slideContentElement.style.opacity = 0;
+
+                // Use setTimeout to allow fade-out animation before changing content
+                setTimeout(() => {
+                    currentSlideIndex = index;
+                    slideContentElement.innerHTML = slides[currentSlideIndex];
+                    slideContentElement.scrollTop = 0; // Scroll to top of new slide content
+                    updateNavButtons(); // Update buttons and counter
+                    // Fade in
+                    slideContentElement.style.opacity = 1;
+                }, 150); // Adjust time slightly less than transition duration
+            }
+        }
+
+        function updateNavButtons() {
+            // Update button disabled states
+            prevBtn.disabled = currentSlideIndex === 0;
+            nextBtn.disabled = currentSlideIndex === slides.length - 1;
+
+            // Update slide counter text
+            slideCounterElement.textContent = `Slide ${currentSlideIndex + 1} / ${slides.length}`;
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < slides.length - 1) {
+                showSlide(currentSlideIndex + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlideIndex > 0) {
+                showSlide(currentSlideIndex - 1);
+            }
+        }
+
+        // --- Event Listeners ---
+
+        // Navigation Buttons
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        // Mouse Click Navigation
+        document.body.addEventListener('click', (event) => {
+            // Prevent advancing if a button or link was clicked
+            if (event.target.tagName !== 'BUTTON' && event.target.tagName !== 'A') {
+                 nextSlide();
+            }
+        });
+
+        document.body.addEventListener('contextmenu', (event) => {
+            event.preventDefault(); // Prevent the default right-click menu
+             // Prevent going back if a button or link was right-clicked
+            if (event.target.tagName !== 'BUTTON' && event.target.tagName !== 'A') {
+                prevSlide();
+            }
+        });
+
+        // Keyboard Navigation (Optional Bonus)
+        document.addEventListener('keydown', (event) => {
+             // Prevent slide changes if user is typing in an input/textarea
+            if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+                return;
+            }
+
+            if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') {
+                // Prevent space bar from scrolling the page if slide content is scrollable
+                if (event.key === ' ') event.preventDefault();
+                nextSlide();
+            } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+                prevSlide();
+            }
+        });
+
+
+        // --- Initial Load ---
+        showSlide(0); // Display the first slide and update counter on load
+
+    </script>
+
+</body>
+</html>
