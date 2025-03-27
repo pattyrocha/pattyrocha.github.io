@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D Workshop Presentation - Final Corrected</title>
-    <style>
+    <title>D&D Workshop Presentation - Final Demo Style</title> <style>
         /* Basic Reset */
         * {
             margin: 0;
@@ -70,13 +69,23 @@
             background-size: contain; background-repeat: no-repeat; background-position: center;
             flex-shrink: 0;
         }
-        .title-slide h1::before, .title-slide h2::before {
-            content: none; display: none;
+        .title-slide h1::before, .title-slide h2::before, #slide-content h2.no-icon::before {
+            content: none;
+            display: none;
         }
 
-        #slide-content h3 {
+
+        #slide-content h3 { /* Base h3 style */
             margin-top: 15px; margin-bottom: 8px; color: #2C5E7A;
-            flex-shrink: 0; font-size: 1.25em; font-weight: bold;
+             flex-shrink: 0; font-size: 1.25em; font-weight: bold;
+        }
+        /* Specific style for sub-sections in Overview/Demo slides */
+        h3.subsection-header { /* This rule styles the subheadings */
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 4px;
+            color: #2C5E7A; /* Accent Color */
         }
 
         #slide-content ul { list-style-position: inside; margin-left: 0; padding-left: 0; flex-shrink: 0; }
@@ -87,15 +96,33 @@
         #slide-content li { margin-bottom: 8px; line-height: 1.6; }
          #slide-content p { margin-bottom: 10px; line-height: 1.6; flex-shrink: 0; }
 
+         /* Adjust margin for lists directly following subsection headers */
+         h3.subsection-header + ul { /* Ensure consistent spacing */
+             margin-top: 2px;
+             margin-left: 5px; /* Optional indent for the whole list */
+         }
+
+         /* Removed h3.subsection-header + p code rule */
+
+
          #slide-content b, #slide-content strong, #slide-content dt { color: #111; font-weight: bold; }
         #slide-content em, #slide-content i { font-style: italic; color: #555; }
 
          #slide-content blockquote { border-left: 3px solid #A8B8C0; padding-left: 15px; margin-left: 10px; margin-top: 10px; margin-bottom: 10px; font-style: italic; color: #555; }
 
-         /* Definition List Styling */
-        .prep-steps dt { margin-top: 10px; font-size: 1.05em; color: #333; }
-        .prep-steps dd { margin-left: 15px; margin-bottom: 6px; line-height: 1.5; color: #444; }
-        .prep-steps dd code { display: inline-block; margin-top: 5px; font-family: monospace; background-color: #EAF0F2; padding: 4px 8px; border-radius: 4px; font-size: 0.95em; color: #2C5E7A; word-wrap: break-word; }
+         /* Definition List Styling Removed */
+
+         /* Style for code tag - General */
+         #slide-content code {
+            display: inline-block; margin-top: 5px; font-family: monospace;
+            background-color: #EAF0F2; padding: 4px 8px; border-radius: 4px;
+            font-size: 0.95em; color: #2C5E7A; word-wrap: break-word;
+        }
+        /* Ensure block display for code within the demo slide list */
+         h3.subsection-header + ul li code {
+             display: block;
+         }
+
 
         /* Reskin Table Styling */
         .reskin-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.95em; }
@@ -103,18 +130,14 @@
         .reskin-table th { background-color: #F4F7F8; font-weight: bold; color: #333; }
          .reskin-table td i { color: #555; }
 
-        /* Title Slide & Break Slide Styling (Modified Canvas Margin) */
+        /* Title Slide & Break Slide Styling */
         .title-slide { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; flex-grow: 1; }
-        .title-slide h1 { font-size: 2.8em; color: #2C5E7A; margin-bottom: 10px; /* Adjusted */ font-weight: bold; }
+        .title-slide h1 { font-size: 2.8em; color: #2C5E7A; margin-bottom: 10px; font-weight: bold; }
         .title-slide h2 { font-size: 2.5em; color: #2C5E7A; border-bottom: none; padding-bottom: 0; margin-bottom: 0; font-weight: bold; }
-        .host-info { font-size: 1.1em; color: #555; /* margin-bottom removed */ }
+        .host-info { font-size: 1.1em; color: #555; }
          /* Canvas on title/break slide */
-        .title-slide canvas {
-            border: none;
-            background-color: transparent;
-            margin-bottom: 25px; /* Changed from margin-top */
-            order: -1; /* Force canvas to visually appear first in flex column */
-        }
+        .title-slide canvas { border: none; background-color: transparent; margin-bottom: 25px; order: -1; }
+
 
         /* Navigation Controls */
         #nav-controls { margin-top: 20px; display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 800px; }
@@ -149,9 +172,10 @@
         (function() { let d20IconDataURL = ''; try { const iconSize = 32; const tempCanvas = document.createElement('canvas'); tempCanvas.width = iconSize; tempCanvas.height = iconSize; const iconCtx = tempCanvas.getContext('2d'); const iconColors = { line: '#4A7C94' }; const iconRadius = iconSize * 0.4; drawD20Icon(iconCtx, iconSize / 2, iconSize / 2, iconRadius, iconColors); d20IconDataURL = tempCanvas.toDataURL('image/png'); document.documentElement.style.setProperty('--d20-icon-url', `url(${d20IconDataURL})`); } catch (e) { console.error("Canvas icon generation failed:", e); document.documentElement.style.setProperty('--d20-icon-url', 'none'); } })();
 
         const slides = [
-            // Slide 0: Title (Canvas moved to top)
+            // Slide 0: Title (Canvas Added)
             `<div class="title-slide">
-                 <canvas id="titleCanvasD20" width="250" height="180"></canvas> <h1>D&D One-Shot Preparation Workshop</h1>
+                 <canvas id="titleCanvasD20" width="250" height="180"></canvas>
+                 <h1>D&D One-Shot Preparation Workshop</h1>
                  <p class="host-info">Hosted by Patty - D&D Amsterdam</p>
             </div>`,
 
@@ -252,21 +276,21 @@
                  </li>
              </ul>`,
 
-             // Slide 7: Example Overview (Condensed Hook, NPCs, Locations)
+             // Slide 7: Example Overview (Condensed Hook, NPCs, Locations - CLASS ADDED)
             `<h2>Example: "The Cat's Mother" Overview</h2>
              <p>Let's quickly introduce our example one-shot based on the provided materials:</p>
              <div>
-                 <h3 style="margin-top: 15px; font-size: 1.1em;">The Hook</h3>
+                 <h3 class="subsection-header">The Hook</h3>
                  <p>The party are hired as bodyguards by Ahonen Aleksi (NCS conservationist) to protect him while he observes a potentially birthing Sabre-Toothed Tiger in the frozen tundra near an NCS hut.</p>
 
-                 <h3 style="margin-top: 15px; font-size: 1.1em;">Key NPCs</h3>
+                 <h3 class="subsection-header">Key NPCs</h3>
                  <ul>
                      <li><b>Ahonen Aleksi:</b> Friendly Halfling conservationist (Scout).</li>
                      <li><b>Belle Solis:</b> Elf (Scout) posing as conservationist, secretly a poacher.</li>
                      <li><b>Seezar Milo:</b> Kobold poacher working with Belle.</li>
                  </ul>
 
-                 <h3 style="margin-top: 15px; font-size: 1.1em;">Key Locations</h3>
+                 <h3 class="subsection-header">Key Locations</h3>
                  <ul>
                      <li><b>Conservation Hut:</b> Starting base.</li>
                      <li><b>Lake of Broken Ice:</b> Travel hazard with potential bear traps.</li>
@@ -274,32 +298,31 @@
                  </ul>
              </div>`,
 
-            // Slide 8: Demonstration Prep (Reformatted)
+            // Slide 8: Demonstration Prep (STRUCTURE CHANGED to H3/UL/LI) - MODIFIED
             `<h2>Demonstration: Prepping "The Cat's Mother"</h2>
-             <p>Now that we have an overview of the adventure's components, let's apply our prep steps <em>to</em> them:</p>
-             <dl class="prep-steps">
-                <dt>Structure Summary</dt>
-                <dd>Map the core flow using the 'Suggested Story' section:<br>
-                    <code>Meet -> Travel -> Polar Bear Encounter -> Cross Lake -> Find Mother -> Fight Poachers -> Camp</code>
-                </dd>
+             <p>Applying our prep steps to the example adventure:</p>
+             <div>
+                 <h3 class="subsection-header">Structure Summary</h3>
+                 <ul><li>Map the core flow using the 'Suggested Story' section:<br>
+                    <code>Meet -> Travel -> Polar Bear Encounter -> Cross Lake -> Find Mother -> Fight Poachers -> Camp</code></li></ul>
 
-                <dt>Essential Elements</dt>
-                <dd>List key NPCs (Ahonen, Belle, Seezar), locations (Hut, Lake, Alcove), & encounters (Trap Release, Poacher Fight).</dd>
+                 <h3 class="subsection-header">Essential Elements</h3>
+                 <ul><li>List key NPCs (Ahonen, Belle, Seezar), locations (Hut, Lake, Alcove), & encounters (Trap Release, Poacher Fight).</li></ul>
 
-                <dt>Stats & DCs</dt>
-                <dd>Extract stats ('Quick Stats': Owl, Kobold, etc.). Prep likely DCs (Balance, Medicine, Perception).</dd>
+                 <h3 class="subsection-header">Stats & DCs</h3>
+                 <ul><li>Extract stats ('Quick Stats': Owl, Kobold, etc.). Prep likely DCs (Balance, Medicine, Perception).</li></ul>
 
-                <dt>Key Info & Secrets</dt>
-                <dd>Note rewards (Gold, Goggles, Gems) & list crucial 'Secrets' (Belle's betrayal, traps, motive).</dd>
+                 <h3 class="subsection-header">Key Info & Secrets</h3>
+                 <ul><li>Note rewards (Gold, Goggles, Gems) & list crucial 'Secrets' (Belle's betrayal, traps, motive).</li></ul>
 
-                <dt>Adaptation Ideas</dt>
-                <dd>Consider 'Harder' options (Gnolls, Spy, Wyvern) & player choices (Belle exposed early?).</dd>
-             </dl>`,
+                 <h3 class="subsection-header">Adaptation Ideas</h3>
+                 <ul><li>Consider 'Harder' options (Gnolls, Spy, Wyvern) & player choices (Belle exposed early?).</li></ul>
+             </div>`,
 
-            // Slide 9: Break (Canvas Added)
+            // Slide 9: Break (Canvas Added, title-slide class removed)
              `<div class="title-slide">
+                  <canvas id="breakCanvasD20" width="250" height="180" style="display: block; margin: 20px auto 0 auto;"></canvas>
                   <h1>Break - 10 min</h1>
-                  <canvas id="breakCanvasD20" width="250" height="180"></canvas>
               </div>`,
 
             // Slide 10: Reskinning Intro (Simpler Examples Added - Safety Modified)
