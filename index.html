@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D One-Shot Workshop Presentation</title>
+    <title>D&D Workshop Presentation - Final Corrected</title>
     <style>
         /* Basic Reset */
         * {
@@ -14,10 +14,10 @@
 
         html, body {
             height: 100%;
-            font-family: sans-serif;
-            background-color: #f4f4f4; /* Light grey background */
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #EAF0F2; /* Very light cool grey/blue */
             color: #333;
-            overflow: hidden; /* Prevent scrolling */
+            overflow: hidden;
         }
 
         /* Presentation Container */
@@ -30,217 +30,98 @@
             padding: 20px;
         }
 
-        /* Slide Content Area (MODIFIED HEIGHT) */
+        /* Slide Content Area */
         #slide-content {
-            background-color: #fff; /* White background for slide */
-            border: 1px solid #ccc;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background-color: #FFFFFF;
+            border: 1px solid #DDE;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
             padding: 30px 40px;
             width: 90%;
-            max-width: 800px; /* Limit width for readability */
-            height: 80%; /* Increased from 75% */
-            max-height: 650px; /* Increased from 600px by 50px */
-            overflow-y: auto; /* Allow scrolling if content overflows */
-            transition: opacity 0.3s ease-in-out; /* Fade transition */
+            max-width: 800px;
+            height: 80%;
+            max-height: 650px;
+            overflow-y: auto;
+            transition: opacity 0.3s ease-in-out;
             opacity: 1;
-            display: flex; /* Use flex for layout */
-            flex-direction: column; /* Stack content vertically */
+            display: flex;
+            flex-direction: column;
         }
 
         /* General Slide Content Styling */
         #slide-content h2 {
-            margin-bottom: 20px;
-            color: #0056b3; /* Blue heading color */
-            border-bottom: 2px solid #eee;
+            margin-bottom: 18px;
+            color: #2C5E7A;
+            border-bottom: 1px solid #E0E7EA;
             padding-bottom: 10px;
-            flex-shrink: 0; /* Prevent headers from shrinking */
-            font-size: 1.8em; /* Default size for regular slide headers */
+            flex-shrink: 0;
+            font-size: 1.8em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        #slide-content h2::before {
+            content: '';
+            display: inline-block;
+            width: 1.1em; height: 1.1em;
+            margin-right: 0.6em;
+            background-image: var(--d20-icon-url);
+            background-size: contain; background-repeat: no-repeat; background-position: center;
+            flex-shrink: 0;
+        }
+        .title-slide h1::before, .title-slide h2::before {
+            content: none; display: none;
         }
 
         #slide-content h3 {
-            margin-top: 15px;
-            margin-bottom: 10px;
-            color: #333;
-             flex-shrink: 0;
-             font-size: 1.2em; /* Default h3 size */
+            margin-top: 15px; margin-bottom: 8px; color: #2C5E7A;
+            flex-shrink: 0; font-size: 1.25em; font-weight: bold;
         }
 
-        #slide-content ul {
-            list-style-position: inside;
-            margin-left: 0;
-            padding-left: 0;
-             flex-shrink: 0;
-        }
-        /* Nested list styling */
-         #slide-content ul ul {
-             margin-left: 20px;
-             margin-top: 5px;
-         }
-         /* Adjust nested list style for exercise slide */
-        .exercise-points {
-            list-style-type: none; /* Remove default bullets */
-            padding-left: 5px;
-        }
-         .exercise-points li {
-             margin-bottom: 8px;
-         }
+        #slide-content ul { list-style-position: inside; margin-left: 0; padding-left: 0; flex-shrink: 0; }
+         #slide-content ul ul { margin-left: 18px; margin-top: 4px; }
+        .exercise-points { list-style-type: none; padding-left: 5px; }
+         .exercise-points li { margin-bottom: 6px; }
 
+        #slide-content li { margin-bottom: 8px; line-height: 1.6; }
+         #slide-content p { margin-bottom: 10px; line-height: 1.6; flex-shrink: 0; }
 
-        #slide-content li {
-            margin-bottom: 10px;
-            line-height: 1.6;
+         #slide-content b, #slide-content strong, #slide-content dt { color: #111; font-weight: bold; }
+        #slide-content em, #slide-content i { font-style: italic; color: #555; }
+
+         #slide-content blockquote { border-left: 3px solid #A8B8C0; padding-left: 15px; margin-left: 10px; margin-top: 10px; margin-bottom: 10px; font-style: italic; color: #555; }
+
+         /* Definition List Styling */
+        .prep-steps dt { margin-top: 10px; font-size: 1.05em; color: #333; }
+        .prep-steps dd { margin-left: 15px; margin-bottom: 6px; line-height: 1.5; color: #444; }
+        .prep-steps dd code { display: inline-block; margin-top: 5px; font-family: monospace; background-color: #EAF0F2; padding: 4px 8px; border-radius: 4px; font-size: 0.95em; color: #2C5E7A; word-wrap: break-word; }
+
+        /* Reskin Table Styling */
+        .reskin-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.95em; }
+        .reskin-table th, .reskin-table td { border: 1px solid #E0E7EA; padding: 8px 10px; text-align: left; vertical-align: top; }
+        .reskin-table th { background-color: #F4F7F8; font-weight: bold; color: #333; }
+         .reskin-table td i { color: #555; }
+
+        /* Title Slide & Break Slide Styling (Modified Canvas Margin) */
+        .title-slide { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; flex-grow: 1; }
+        .title-slide h1 { font-size: 2.8em; color: #2C5E7A; margin-bottom: 10px; /* Adjusted */ font-weight: bold; }
+        .title-slide h2 { font-size: 2.5em; color: #2C5E7A; border-bottom: none; padding-bottom: 0; margin-bottom: 0; font-weight: bold; }
+        .host-info { font-size: 1.1em; color: #555; /* margin-bottom removed */ }
+         /* Canvas on title/break slide */
+        .title-slide canvas {
+            border: none;
+            background-color: transparent;
+            margin-bottom: 25px; /* Changed from margin-top */
+            order: -1; /* Force canvas to visually appear first in flex column */
         }
-         #slide-content p {
-            margin-bottom: 10px;
-            line-height: 1.6;
-             flex-shrink: 0;
-         }
-
-         /* Style for bold text within list items */
-         #slide-content li b, #slide-content p b, #slide-content dt { /* Added dt */
-             color: #333; /* Ensure bold text is clearly visible */
-             font-weight: bold;
-         }
-         /* Style for italic text */
-        #slide-content em, #slide-content i {
-            font-style: italic;
-        }
-
-
-         /* Blockquote styling */
-         #slide-content blockquote {
-             border-left: 3px solid #eee;
-             padding-left: 15px;
-             margin-left: 10px;
-             margin-top: 10px;
-             margin-bottom: 10px;
-             font-style: italic;
-             color: #555;
-         }
-
-         /* --- Definition List Styling (for Demo slide) --- */
-        .prep-steps dt {
-            margin-top: 12px; /* Space above each term */
-            font-size: 1.05em;
-        }
-        .prep-steps dd {
-            margin-left: 20px; /* Indent description */
-            margin-bottom: 8px; /* Space below each description */
-            line-height: 1.5;
-            color: #444; /* Slightly lighter text for description */
-        }
-        /* Style for the flow line specifically */
-        .prep-steps dd code {
-            display: block; /* Make it its own line */
-            margin-top: 5px; /* Space above the flow line */
-            font-family: monospace; /* Monospace font for flow */
-            background-color: #f8f8f8; /* Slight background tint */
-            padding: 3px 6px;
-            border-radius: 3px;
-            font-size: 0.95em;
-        }
-
-        /* --- End Definition List Styling --- */
-
-
-        /* --- Reskin Table Styling --- */
-        .reskin-table {
-            width: 100%;
-            border-collapse: collapse; /* Remove double borders */
-            margin-top: 15px;
-            font-size: 0.95em; /* Adjust font size for table */
-        }
-        .reskin-table th,
-        .reskin-table td {
-            border: 1px solid #ddd; /* Light grey borders */
-            padding: 8px 10px; /* Add padding */
-            text-align: left;
-            vertical-align: top; /* Align text to top */
-        }
-        .reskin-table th {
-            background-color: #f2f2f2; /* Light grey header */
-            font-weight: bold;
-            color: #333;
-        }
-         .reskin-table td i { /* Style italic text */
-            color: #555;
-        }
-        /* --- End Reskin Table Styling --- */
-
-
-        /* --- Specific Title Slide Styling --- */
-        .title-slide {
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Vertically center the content */
-            align-items: center; /* Horizontally center */
-            text-align: center;
-            height: 100%;
-            flex-grow: 1;
-        }
-
-        /* Style for H1 on the main title slide */
-        .title-slide h1 {
-            font-size: 2.8em;
-            color: #0056b3;
-            margin-bottom: 25px; /* Space between title and host info */
-        }
-
-         /* Style for H2 when used within a title-slide (like the break slide) */
-        .title-slide h2 {
-            font-size: 2.5em; /* Make it prominent */
-            color: #0056b3;
-            /* Override general h2 styles */
-            border-bottom: none;
-            padding-bottom: 0;
-            margin-bottom: 0; /* Reset margin if needed */
-        }
-
-        .host-info {
-            font-size: 1em;
-            color: #555;
-            /* No margin-top: auto needed for centered block */
-        }
-        /* --- End Title Slide Styling --- */
-
 
         /* Navigation Controls */
-        #nav-controls {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between; /* Puts space between buttons and counter */
-            align-items: center; /* Vertically aligns items */
-            width: 90%;
-            max-width: 800px;
-        }
-
-        #nav-controls button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #007bff; /* Blue buttons */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            transition: background-color 0.2s ease;
-        }
-
-        #nav-controls button:hover:not(:disabled) {
-            background-color: #0056b3; /* Darker blue on hover */
-        }
-
-        #nav-controls button:disabled {
-            background-color: #cccccc; /* Grey out disabled buttons */
-            cursor: not-allowed;
-        }
-
-        /* Styling for the slide counter */
-        #slide-counter {
-             font-size: 0.95em;
-             color: #555;
-             /* Optional: Add padding if needed, but space-between should handle spacing */
-             /* padding: 0 15px; */
-        }
+        #nav-controls { margin-top: 20px; display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 800px; }
+        #nav-controls button { padding: 10px 20px; font-size: 1em; font-weight: normal; cursor: pointer; background-color: #4A7C94; color: white; border: none; border-radius: 4px; transition: background-color 0.2s ease; }
+        #nav-controls button:hover:not(:disabled) { background-color: #3B6377; }
+        #nav-controls button:disabled { background-color: #A8B8C0; cursor: not-allowed; color: #EAF0F2; }
+        #slide-counter { font-size: 1em; color: #555; padding: 0 10px; }
 
     </style>
 </head>
@@ -251,15 +132,26 @@
             </div>
         <div id="nav-controls">
             <button id="prev-btn">&lt; Previous</button>
-            <span id="slide-counter"></span> <button id="next-btn">Next &gt;</button>
+            <span id="slide-counter"></span>
+            <button id="next-btn">Next &gt;</button>
         </div>
     </div>
 
     <script>
+        // --- Canvas Drawing Functions ---
+        function drawTriangle(ctx, p1, p2, p3, fillColor, lineColor, lineWidth) { ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p3.x, p3.y); ctx.closePath(); if (fillColor) { ctx.fillStyle = fillColor; ctx.fill(); } if (lineColor && lineWidth > 0) { ctx.strokeStyle = lineColor; ctx.lineWidth = lineWidth; ctx.stroke(); } }
+        function drawD20(ctx, centerX, centerY, hexRadius, colors) { const centerSize = hexRadius * (139 / 120); const lineWidth = 1; const hexVerts = []; for (let i = 0; i < 6; i++) { let angle = -Math.PI / 2 + i * Math.PI / 3; hexVerts.push({ x: centerX + hexRadius * Math.cos(angle), y: centerY + hexRadius * Math.sin(angle) }); } const h_c = centerSize * Math.sqrt(3) / 2; const r_c_in = h_c / 3; const r_c_out = h_c * 2 / 3; const vC1 = { x: centerX, y: centerY - r_c_out }; const vC2 = { x: centerX - centerSize / 2, y: centerY + r_c_in }; const vC3 = { x: centerX + centerSize / 2, y: centerY + r_c_in }; const vS1 = hexVerts[5]; const vS2 = hexVerts[1]; const vS3 = hexVerts[3]; drawTriangle(ctx, vC1, hexVerts[0], vS2, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC1, hexVerts[0], vS1, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC2, hexVerts[4], vS1, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC2, hexVerts[4], vS3, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC3, hexVerts[2], vS3, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC3, hexVerts[2], vS2, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC1, vC2, vS1, colors.sec, colors.line, lineWidth); drawTriangle(ctx, vC2, vC3, vS3, colors.sec, colors.line, lineWidth); drawTriangle(ctx, vC3, vC1, vS2, colors.sec, colors.line, lineWidth); drawTriangle(ctx, vC1, vC2, vC3, colors.center, colors.line, lineWidth); ctx.beginPath(); ctx.moveTo(hexVerts[0].x, hexVerts[0].y); for(let i=1; i<6; i++){ ctx.lineTo(hexVerts[i].x, hexVerts[i].y); } ctx.closePath(); ctx.lineWidth = lineWidth + 0.5; ctx.strokeStyle = colors.line; ctx.stroke(); }
+        function drawNumber(ctx, number, centerX, centerY, hexRadius) { const estimatedFontSize = Math.floor(hexRadius * 0.50); if (estimatedFontSize <= 5) return; ctx.fillStyle = '#FFFFFF'; ctx.strokeStyle = '#333'; ctx.lineWidth = 1; ctx.font = `bold ${estimatedFontSize}px Arial`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.shadowColor = 'rgba(0, 0, 0, 0.5)'; ctx.shadowBlur = 3; ctx.shadowOffsetX = 1; ctx.shadowOffsetY = 1; ctx.fillText(number.toString(), centerX, centerY); ctx.shadowColor = 'transparent'; ctx.strokeText(number.toString(), centerX, centerY); }
+        function drawD20Icon(ctx, centerX, centerY, hexRadius, colors) { const lineWidth = 1.5; const hexVerts = []; for (let i = 0; i < 6; i++) { let angle = -Math.PI / 2 + i * Math.PI / 3; hexVerts.push({ x: centerX + hexRadius * Math.cos(angle), y: centerY + hexRadius * Math.sin(angle) }); } ctx.beginPath(); ctx.moveTo(hexVerts[0].x, hexVerts[0].y); for(let i=1; i<6; i++){ ctx.lineTo(hexVerts[i].x, hexVerts[i].y); } ctx.closePath(); ctx.strokeStyle = colors.line; ctx.lineWidth = lineWidth; ctx.stroke(); }
+        // --- End Canvas Drawing Functions ---
+
+        // --- Generate Icon Data URL ONCE on Load ---
+        (function() { let d20IconDataURL = ''; try { const iconSize = 32; const tempCanvas = document.createElement('canvas'); tempCanvas.width = iconSize; tempCanvas.height = iconSize; const iconCtx = tempCanvas.getContext('2d'); const iconColors = { line: '#4A7C94' }; const iconRadius = iconSize * 0.4; drawD20Icon(iconCtx, iconSize / 2, iconSize / 2, iconRadius, iconColors); d20IconDataURL = tempCanvas.toDataURL('image/png'); document.documentElement.style.setProperty('--d20-icon-url', `url(${d20IconDataURL})`); } catch (e) { console.error("Canvas icon generation failed:", e); document.documentElement.style.setProperty('--d20-icon-url', 'none'); } })();
+
         const slides = [
-            // Slide 0: Title
+            // Slide 0: Title (Canvas moved to top)
             `<div class="title-slide">
-                 <h1>D&D One-Shot Preparation Workshop</h1>
+                 <canvas id="titleCanvasD20" width="250" height="180"></canvas> <h1>D&D One-Shot Preparation Workshop</h1>
                  <p class="host-info">Hosted by Patty - D&D Amsterdam</p>
             </div>`,
 
@@ -273,7 +165,8 @@
                 <li><b>Using Pre-Mades:</b> Why & How</li>
                 <li><b>Example Intro:</b> "The Cat's Mother" Overview</li>
                 <li><b>Demo:</b> Quick Prep Walkthrough</li>
-                <li><b>Safety & Content</b> (Brief discussion)</li> <li><b>Break</b></li>
+                <li><b>Safety & Content</b> (Brief discussion)</li>
+                <li><b>Break</b></li>
                 <li><b>Reskinning:</b> Technique & Example</li>
                 <li><b>Practice:</b> Start Your Reskin</li>
                 <li><b>Wrap-up & Q&A</b></li>
@@ -403,9 +296,10 @@
                 <dd>Consider 'Harder' options (Gnolls, Spy, Wyvern) & player choices (Belle exposed early?).</dd>
              </dl>`,
 
-            // Slide 9: Break
+            // Slide 9: Break (Canvas Added)
              `<div class="title-slide">
-                  <h2>Break - 10 min</h2>
+                  <h1>Break - 10 min</h1>
+                  <canvas id="breakCanvasD20" width="250" height="180"></canvas>
               </div>`,
 
             // Slide 10: Reskinning Intro (Simpler Examples Added - Safety Modified)
@@ -514,87 +408,70 @@
         const slideContentElement = document.getElementById('slide-content');
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
-        const slideCounterElement = document.getElementById('slide-counter'); // Get reference to counter element
+        const slideCounterElement = document.getElementById('slide-counter');
 
+        // --- Canvas Drawing Functions ---
+        function drawTriangle(ctx, p1, p2, p3, fillColor, lineColor, lineWidth) { ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p3.x, p3.y); ctx.closePath(); if (fillColor) { ctx.fillStyle = fillColor; ctx.fill(); } if (lineColor && lineWidth > 0) { ctx.strokeStyle = lineColor; ctx.lineWidth = lineWidth; ctx.stroke(); } }
+        function drawD20(ctx, centerX, centerY, hexRadius, colors) { const centerSize = hexRadius * (139 / 120); const lineWidth = 1; const hexVerts = []; for (let i = 0; i < 6; i++) { let angle = -Math.PI / 2 + i * Math.PI / 3; hexVerts.push({ x: centerX + hexRadius * Math.cos(angle), y: centerY + hexRadius * Math.sin(angle) }); } const h_c = centerSize * Math.sqrt(3) / 2; const r_c_in = h_c / 3; const r_c_out = h_c * 2 / 3; const vC1 = { x: centerX, y: centerY - r_c_out }; const vC2 = { x: centerX - centerSize / 2, y: centerY + r_c_in }; const vC3 = { x: centerX + centerSize / 2, y: centerY + r_c_in }; const vS1 = hexVerts[5]; const vS2 = hexVerts[1]; const vS3 = hexVerts[3]; drawTriangle(ctx, vC1, hexVerts[0], vS2, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC1, hexVerts[0], vS1, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC2, hexVerts[4], vS1, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC2, hexVerts[4], vS3, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC3, hexVerts[2], vS3, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC3, hexVerts[2], vS2, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC1, vC2, vS1, colors.sec, colors.line, lineWidth); drawTriangle(ctx, vC2, vC3, vS3, colors.sec, colors.line, lineWidth); drawTriangle(ctx, vC3, vC1, vS2, colors.sec, colors.line, lineWidth); drawTriangle(ctx, vC1, vC2, vC3, colors.center, colors.line, lineWidth); ctx.beginPath(); ctx.moveTo(hexVerts[0].x, hexVerts[0].y); for(let i=1; i<6; i++){ ctx.lineTo(hexVerts[i].x, hexVerts[i].y); } ctx.closePath(); ctx.lineWidth = lineWidth + 0.5; ctx.strokeStyle = colors.line; ctx.stroke(); }
+        function drawNumber(ctx, number, centerX, centerY, hexRadius) { const estimatedFontSize = Math.floor(hexRadius * 0.50); if (estimatedFontSize <= 5) return; ctx.fillStyle = '#FFFFFF'; ctx.strokeStyle = '#333'; ctx.lineWidth = 1; ctx.font = `bold ${estimatedFontSize}px Arial`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.shadowColor = 'rgba(0, 0, 0, 0.5)'; ctx.shadowBlur = 3; ctx.shadowOffsetX = 1; ctx.shadowOffsetY = 1; ctx.fillText(number.toString(), centerX, centerY); ctx.shadowColor = 'transparent'; ctx.strokeText(number.toString(), centerX, centerY); }
+        function drawD20Icon(ctx, centerX, centerY, hexRadius, colors) { const lineWidth = 1.5; const hexVerts = []; for (let i = 0; i < 6; i++) { let angle = -Math.PI / 2 + i * Math.PI / 3; hexVerts.push({ x: centerX + hexRadius * Math.cos(angle), y: centerY + hexRadius * Math.sin(angle) }); } ctx.beginPath(); ctx.moveTo(hexVerts[0].x, hexVerts[0].y); for(let i=1; i<6; i++){ ctx.lineTo(hexVerts[i].x, hexVerts[i].y); } ctx.closePath(); ctx.strokeStyle = colors.line; ctx.lineWidth = lineWidth; ctx.stroke(); }
+        // --- End Canvas Drawing Functions ---
+
+        // --- Generate Icon Data URL ONCE on Load ---
+        (function() { let d20IconDataURL = ''; try { const iconSize = 32; const tempCanvas = document.createElement('canvas'); tempCanvas.width = iconSize; tempCanvas.height = iconSize; const iconCtx = tempCanvas.getContext('2d'); const iconColors = { line: '#4A7C94' }; const iconRadius = iconSize * 0.4; drawD20Icon(iconCtx, iconSize / 2, iconSize / 2, iconRadius, iconColors); d20IconDataURL = tempCanvas.toDataURL('image/png'); document.documentElement.style.setProperty('--d20-icon-url', `url(${d20IconDataURL})`); } catch (e) { console.error("Canvas icon generation failed:", e); document.documentElement.style.setProperty('--d20-icon-url', 'none'); } })();
+
+        // --- Main Slide Logic ---
         function showSlide(index) {
             if (index >= 0 && index < slides.length) {
-                // Fade out
                 slideContentElement.style.opacity = 0;
-
-                // Use setTimeout to allow fade-out animation before changing content
                 setTimeout(() => {
                     currentSlideIndex = index;
                     slideContentElement.innerHTML = slides[currentSlideIndex];
-                    slideContentElement.scrollTop = 0; // Scroll to top of new slide content
-                    updateNavButtons(); // Update buttons and counter
-                    // Fade in
+                    slideContentElement.scrollTop = 0;
+                    updateNavButtons();
+
+                    // --- Execute Drawing Logic for Slides 0 and 9 ---
+                    if (index === 0 || index === 9) { // Title (0) OR Break (9)
+                        const canvasId = (index === 0) ? 'titleCanvasD20' : 'breakCanvasD20';
+                        const targetCanvas = document.getElementById(canvasId);
+                        if (targetCanvas) {
+                            const targetCtx = targetCanvas.getContext('2d');
+                            const canvasW = targetCanvas.width; const canvasH = targetCanvas.height;
+                            const cX = canvasW / 2; const cY = canvasH / 2 + (canvasH * 0.05);
+                            const themePalette1 = { center: '#EAF0F2', sec: '#A8B8C0', ter: '#CAD4DA', line: '#2C5E7A' };
+                            const themePalette2 = { center: '#CAD4DA', sec: '#A8B8C0', ter: '#EAF0F2', line: '#2C5E7A' };
+                            const themePalette3 = { center: '#A8B8C0', sec: '#CAD4DA', ter: '#EAF0F2', line: '#2C5E7A' };
+                            const die1_r = canvasH * 0.4; const die2_r = die1_r * 0.55; const die3_r = die1_r * 0.7;
+                            const die1_x = cX; const die1_y = cY - canvasH * 0.1;
+                            const die2_x = cX - die1_r * 0.8; const die2_y = cY + canvasH * 0.2;
+                            const die3_x = cX + die1_r * 0.9; const die3_y = cY + canvasH * 0.1;
+                             targetCtx.clearRect(0, 0, canvasW, canvasH);
+                            let num2 = Math.floor(Math.random() * 19) + 1;
+                            drawD20(targetCtx, die2_x, die2_y, die2_r, themePalette2); drawNumber(targetCtx, num2, die2_x, die2_y, die2_r);
+                            let num3 = Math.floor(Math.random() * 19) + 1;
+                            drawD20(targetCtx, die3_x, die3_y, die3_r, themePalette3); drawNumber(targetCtx, num3, die3_x, die3_y, die3_r);
+                            drawD20(targetCtx, die1_x, die1_y, die1_r, themePalette1); drawNumber(targetCtx, 20, die1_x, die1_y, die1_r);
+                        }
+                    }
+                    // --- End Drawing Logic ---
+
                     slideContentElement.style.opacity = 1;
-                }, 150); // Adjust time slightly less than transition duration
+                }, 150);
             }
         }
 
-        function updateNavButtons() {
-            // Update button disabled states
-            prevBtn.disabled = currentSlideIndex === 0;
-            nextBtn.disabled = currentSlideIndex === slides.length - 1;
+        function updateNavButtons() { prevBtn.disabled = currentSlideIndex === 0; nextBtn.disabled = currentSlideIndex === slides.length - 1; slideCounterElement.textContent = `Slide ${currentSlideIndex + 1} / ${slides.length}`; }
+        function nextSlide() { if (currentSlideIndex < slides.length - 1) { showSlide(currentSlideIndex + 1); } }
+        function prevSlide() { if (currentSlideIndex > 0) { showSlide(currentSlideIndex - 1); } }
 
-            // Update slide counter text
-            slideCounterElement.textContent = `Slide ${currentSlideIndex + 1} / ${slides.length}`;
-        }
+        // Event Listeners
+        prevBtn.addEventListener('click', prevSlide); nextBtn.addEventListener('click', nextSlide);
+        document.body.addEventListener('click', (event) => { if (event.target.tagName !== 'BUTTON' && event.target.tagName !== 'A') { nextSlide(); } });
+        document.body.addEventListener('contextmenu', (event) => { event.preventDefault(); if (event.target.tagName !== 'BUTTON' && event.target.tagName !== 'A') { prevSlide(); } });
+        document.addEventListener('keydown', (event) => { if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') { return; } if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') { if (event.key === ' ') event.preventDefault(); nextSlide(); } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') { prevSlide(); } });
 
-        function nextSlide() {
-            if (currentSlideIndex < slides.length - 1) {
-                showSlide(currentSlideIndex + 1);
-            }
-        }
-
-        function prevSlide() {
-            if (currentSlideIndex > 0) {
-                showSlide(currentSlideIndex - 1);
-            }
-        }
-
-        // --- Event Listeners ---
-
-        // Navigation Buttons
-        prevBtn.addEventListener('click', prevSlide);
-        nextBtn.addEventListener('click', nextSlide);
-
-        // Mouse Click Navigation
-        document.body.addEventListener('click', (event) => {
-            // Prevent advancing if a button or link was clicked
-            if (event.target.tagName !== 'BUTTON' && event.target.tagName !== 'A') {
-                 nextSlide();
-            }
-        });
-
-        document.body.addEventListener('contextmenu', (event) => {
-            event.preventDefault(); // Prevent the default right-click menu
-             // Prevent going back if a button or link was right-clicked
-            if (event.target.tagName !== 'BUTTON' && event.target.tagName !== 'A') {
-                prevSlide();
-            }
-        });
-
-        // Keyboard Navigation (Optional Bonus)
-        document.addEventListener('keydown', (event) => {
-             // Prevent slide changes if user is typing in an input/textarea
-            if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
-                return;
-            }
-
-            if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') {
-                // Prevent space bar from scrolling the page if slide content is scrollable
-                if (event.key === ' ') event.preventDefault();
-                nextSlide();
-            } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
-                prevSlide();
-            }
-        });
-
-
-        // --- Initial Load ---
-        showSlide(0); // Display the first slide and update counter on load
+        // Initial Load
+        showSlide(0);
 
     </script>
 
