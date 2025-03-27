@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&D Workshop Presentation - Final Demo Style</title> <style>
+    <title>D&D Workshop Presentation</title>
+    <style>
         /* Basic Reset */
         * {
             margin: 0;
@@ -80,12 +81,12 @@
              flex-shrink: 0; font-size: 1.25em; font-weight: bold;
         }
         /* Specific style for sub-sections in Overview/Demo slides */
-        h3.subsection-header { /* This rule styles the subheadings */
+        h3.subsection-header {
             font-size: 1.1em;
             font-weight: bold;
             margin-top: 15px;
             margin-bottom: 4px;
-            color: #2C5E7A; /* Accent Color */
+            color: #2C5E7A; /* Use Accent Color */
         }
 
         #slide-content ul { list-style-position: inside; margin-left: 0; padding-left: 0; flex-shrink: 0; }
@@ -96,13 +97,17 @@
         #slide-content li { margin-bottom: 8px; line-height: 1.6; }
          #slide-content p { margin-bottom: 10px; line-height: 1.6; flex-shrink: 0; }
 
-         /* Adjust margin for lists directly following subsection headers */
-         h3.subsection-header + ul { /* Ensure consistent spacing */
+         /* Adjust margin for paragraphs/lists directly following subsection headers */
+         h3.subsection-header + p, h3.subsection-header + ul {
              margin-top: 2px;
-             margin-left: 5px; /* Optional indent for the whole list */
+             margin-left: 5px;
          }
-
-         /* Removed h3.subsection-header + p code rule */
+          /* Adjust margin/display for code directly following subsection headers */
+         h3.subsection-header + p code {
+              display: block;
+              margin-top: 5px;
+              margin-left: 0px;
+         }
 
 
          #slide-content b, #slide-content strong, #slide-content dt { color: #111; font-weight: bold; }
@@ -110,7 +115,7 @@
 
          #slide-content blockquote { border-left: 3px solid #A8B8C0; padding-left: 15px; margin-left: 10px; margin-top: 10px; margin-bottom: 10px; font-style: italic; color: #555; }
 
-         /* Definition List Styling Removed */
+         /* Definition List Styling REMOVED */
 
          /* Style for code tag - General */
          #slide-content code {
@@ -119,7 +124,7 @@
             font-size: 0.95em; color: #2C5E7A; word-wrap: break-word;
         }
         /* Ensure block display for code within the demo slide list */
-         h3.subsection-header + ul li code {
+         h3.subsection-header + p code {
              display: block;
          }
 
@@ -135,8 +140,9 @@
         .title-slide h1 { font-size: 2.8em; color: #2C5E7A; margin-bottom: 10px; font-weight: bold; }
         .title-slide h2 { font-size: 2.5em; color: #2C5E7A; border-bottom: none; padding-bottom: 0; margin-bottom: 0; font-weight: bold; }
         .host-info { font-size: 1.1em; color: #555; }
-         /* Canvas on title/break slide */
+         /* Canvas on title/break/wrapup slide */
         .title-slide canvas { border: none; background-color: transparent; margin-bottom: 25px; order: -1; }
+        #breakCanvasD20, #wrapupCanvasD20 { margin-top: 20px; margin-bottom: 15px !important; order: 0 !important; }
 
 
         /* Navigation Controls */
@@ -197,7 +203,8 @@
              </ul>`,
 
             // Slide 2: Key Themes Overview (Enriched)
-            `<h2>Key Themes for Managing Your One-Shot Effectively</h2>
+            `<h2>Managing Your One-Shot Effectively</h2>
+            <h3>Key Themes</h3>
              <p>Running a one-shot presents unique challenges compared to a campaign. We'll focus on three key areas:</p>
              <ul>
                 <li><b>Pacing & Flow:</b> Ensuring the story progresses satisfyingly within the limited time.</li>
@@ -298,7 +305,7 @@
                  </ul>
              </div>`,
 
-            // Slide 8: Demonstration Prep (STRUCTURE CHANGED to H3/UL/LI) - MODIFIED
+            // Slide 8: Demonstration Prep (Restructured to H3/UL/LI)
             `<h2>Demonstration: Prepping "The Cat's Mother"</h2>
              <p>Applying our prep steps to the example adventure:</p>
              <div>
@@ -411,20 +418,19 @@
                  <li>(Focus on capturing core ideas, not perfection!)</li>
              </ul>`,
 
-            // Slide 14: Wrap-Up (Enriched)
-            `<h2>Wrap-Up & Closing</h2>
-             <ul>
-                 <li><b>Recap Key Takeaways:</b>
-                     <ul>
-                        <li>Managing Pacing is crucial for one-shots.</li>
-                        <li>Pre-made adventures save time; learn to dissect them quickly.</li>
-                        <li>Reskinning is a powerful tool for adapting pre-mades.</li>
-                     </ul>
-                 </li>
-                 <li>Final Questions & Discussion</li>
-                 <li>Additional Resources / Contact Info</li>
-                 <li>Thank you for participating!</li>
-             </ul>`
+            // Slide 14: Wrap-Up (MODIFIED)
+            `<div class="title-slide">
+                 <h2 class="no-icon">Wrap-Up & Closing</h2>
+
+                 <p style="margin-top:20px;"><b>Key Takeaways:</b> Manage Pacing | Prep Pre-mades Quickly | Reskin Creatively</p>
+
+                 <p style="margin-top:20px;"><b>Questions & Discussion?</b></p>
+
+                 <p>Feel free to reach out to me (Patty) on our Discord server!</p> <canvas id="wrapupCanvasD20" width="250" height="180" style="margin-top: 25px; margin-bottom: 25px; order: initial;"></canvas>
+
+                 <p style="font-size: 1.8em; font-weight: bold; color: #2C5E7A; margin-top: 10px;">Thank You!</p>
+                 <p style="margin-top: 5px; font-style: italic;">Go forth and run great one-shots!</p>
+             </div>`
         ];
 
         let currentSlideIndex = 0;
@@ -453,9 +459,13 @@
                     slideContentElement.scrollTop = 0;
                     updateNavButtons();
 
-                    // --- Execute Drawing Logic for Slides 0 and 9 ---
-                    if (index === 0 || index === 9) { // Title (0) OR Break (9)
-                        const canvasId = (index === 0) ? 'titleCanvasD20' : 'breakCanvasD20';
+                    // --- Execute Drawing Logic for Slides 0, 9, and 14 ---
+                    if (index === 0 || index === 9 || index === 14) { // Title (0), Break (9), Wrap-up (14)
+                        let canvasId;
+                        if (index === 0) canvasId = 'titleCanvasD20';
+                        else if (index === 9) canvasId = 'breakCanvasD20';
+                        else if (index === 14) canvasId = 'wrapupCanvasD20';
+
                         const targetCanvas = document.getElementById(canvasId);
                         if (targetCanvas) {
                             const targetCtx = targetCanvas.getContext('2d');
