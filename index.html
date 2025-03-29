@@ -108,6 +108,11 @@
               margin-top: 5px;
               margin-left: 0px;
          }
+         /* Adjust margin for lists following list items (like in Minis vs TotM slide) */
+         #slide-content li > ul {
+             margin-top: 4px; /* Reset default */
+             margin-bottom: 8px;
+         }
 
 
          #slide-content b, #slide-content strong, #slide-content dt { color: #111; font-weight: bold; }
@@ -262,7 +267,28 @@
                 </li>
              </ul>`,
 
-            // Slide 6: Why Pre-made? (Split - Part 1) - MODIFIED
+             // Slide 6: Minis vs. Theater of the Mind (NEW SLIDE)
+             `<h2>Minis vs. Theater of the Mind (TotM)</h2>
+              <p>How will you represent combat and exploration? Both have pros & cons, especially for one-shots:</p>
+              <ul>
+                  <li><b>Theater of the Mind (TotM):</b> Using description & imagination.
+                      <ul>
+                          <li><em>Pros:</em> Faster setup, flexible, no extra materials.</li>
+                          <li><em>Cons:</em> Can be unclear for complex positioning, needs strong description.</li>
+                          <li><em>Good For:</em> Narrative scenes, simple combats, portability.</li>
+                      </ul>
+                  </li>
+                  <li><b>Miniatures & Map/Grid:</b> Using tokens & maps (physical/virtual).
+                      <ul>
+                          <li><em>Pros:</em> Clear positioning, easier tactics, visual aid.</li>
+                          <li><em>Cons:</em> Needs prep/materials, can slow play.</li>
+                          <li><em>Makeshift Minis:</em> You don't need fancy minis! <b>Coins, beads, dice, or paper tokens work great. Grid paper sheets</b> are provided by us so you don't necessarily need a map.</li> <li><em>Good For:</em> Tactical combats, complex areas, visual groups.</li>
+                      </ul>
+                  </li>
+              </ul>
+              <p><b>One-Shot Tip:</b> Consider a hybrid! Use TotM generally, map/tokens - or even a small sketch drwaing - for key combats.</p>`,
+
+            // Slide 7: Why Pre-made? (Now Index 7)
             `<h2>Why Go for a Pre-made One-Shot?</h2>
              <ul>
                 <li><b>Benefits:</b>
@@ -282,9 +308,9 @@
                         <li>Quality varies - some pre-mades are better than others!</li>
                      </ul>
                  </li>
-                 </ul>`,
+             </ul>`,
 
-             // Slide 7: Dissecting a Pre-made (NEW - Split Part 2)
+             // Slide 8: Dissecting Pre-made (Now Index 8)
              `<h2>Dissecting a Pre-made Adventure</h2>
               <p>Don't just read it like a novel! Actively break it down:</p>
               <ul>
@@ -294,7 +320,7 @@
                  <li>Highlight critical clues, secrets, and monster stat blocks.</li>
               </ul>`,
 
-             // Slide 8: Example Overview (Condensed Hook, NPCs, Locations - CLASS ADDED) - Index Shifted
+             // Slide 9: Example Overview (Now Index 9)
             `<h2>Example: "The Cat's Mother" Overview</h2>
              <p>Let's quickly introduce our example one-shot based on the provided materials:</p>
              <div>
@@ -316,7 +342,7 @@
                  </ul>
              </div>`,
 
-            // Slide 9: Demonstration Prep (Restructured to H3/UL/LI) - Index Shifted
+            // Slide 10: Demonstration Prep (Now Index 10)
             `<h2>Demonstration: Prepping "The Cat's Mother"</h2>
              <p>Applying our prep steps to the example adventure:</p>
              <div>
@@ -337,13 +363,13 @@
                  <ul><li>Consider 'Harder' options (Gnolls, Spy, Wyvern) & player choices (Belle exposed early?).</li></ul>
              </div>`,
 
-            // Slide 9: Break (Canvas Added, title-slide class removed)
+            // Slide 11: Break (Canvas Added, title-slide class removed)
              `<div class="title-slide">
                   <canvas id="breakCanvasD20" width="250" height="180" style="display: block; margin: 20px auto 0 auto;"></canvas>
                   <h1>Break - 10 min</h1>
               </div>`,
 
-            // Slide 11: Reskinning Intro (Simpler Examples Added - Safety Modified) - Index Shifted
+            // Slide 12: Reskinning Intro (Now Index 12)
             `<h2>Leveraging a Pre-made: Reskinning</h2>
              <h3>What is Reskinning?</h3>
              <p>Reskinning means taking the core mechanics, structure, pacing, and difficulty of an existing adventure (or elements like monsters, items, locations) and changing the theme and descriptions to make it fresh or fit your desired style.</p>
@@ -360,7 +386,7 @@
              </ul>
              <p>The mechanics stay the same, only the flavor changes!</p>`,
 
-            // Slide 12: Reskinning Example (Table) - Index Shifted
+            // Slide 13: Reskinning Example (Table) - Index Shifted
             `<h2>Reskinning Example: Adventure</h2>
              <p>Comparing original elements ("The Cat's Mother") to a possible full reskin:</p>
              <table class="reskin-table">
@@ -405,7 +431,7 @@
                </tbody>
              </table>`,
 
-            // Slide 13: Reskinning Brainstorm (Meta Text Adjusted) - Index Shifted
+            // Slide 14: Reskinning Brainstorm (Meta Text Adjusted) - Index Shifted
             `<h2>Reskinning: Group Brainstorm</h2>
              <p>Let's brainstorm some reskinning ideas together based on "The Cat's Mother":</p>
              <ul>
@@ -414,7 +440,7 @@
                  <li>Prompt 3: In that new setting, what could the 'Polar Bear Rescue' hook become?</li>
              </ul>`,
 
-            // Slide 14: Practical Exercise (Aligned with Worksheet) - Index Shifted
+            // Slide 15: Practical Exercise (Aligned with Worksheet) - Index Shifted
             `<h2>Practical Exercise: Start Your Own Reskin</h2>
              <ul>
                  <li><b>Goal:</b> Begin outlining your own one-shot reskin using "The Cat's Mother" as a structural base.</li>
@@ -429,7 +455,7 @@
                  <li>(Focus on capturing core ideas, not perfection!)</li>
              </ul>`,
 
-            // Slide 15: Wrap-Up (MODIFIED) - Index Shifted
+            // Slide 16: Wrap-Up (MODIFIED) - Index Shifted
             `<div class="title-slide">
                  <h2 class="no-icon">Wrap-Up & Closing</h2>
 
@@ -473,11 +499,11 @@
                     updateNavButtons();
 
                     // --- Execute Drawing Logic for Slides 0, 10, and 15 --- CORRECTED INDICES
-                    if (index === 0 || index === 10 || index === 15) { // Title (0), Break (10), Wrap-up (15)
+                    if (index === 0 || index === 11 || index === 16) { // Title (0), Break (11), Wrap-up (16)
                         let canvasId;
                         if (index === 0) canvasId = 'titleCanvasD20';
-                        else if (index === 10) canvasId = 'breakCanvasD20'; // Index updated
-                        else if (index === 15) canvasId = 'wrapupCanvasD20'; // Index updated
+                        else if (index === 11) canvasId = 'breakCanvasD20'; // Correct index for Break
+                        else if (index === 16) canvasId = 'wrapupCanvasD20'; // Correct index for Wrap-up
 
                         const targetCanvas = document.getElementById(canvasId);
                         if (targetCanvas) {
