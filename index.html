@@ -124,7 +124,7 @@
             font-size: 0.95em; color: #2C5E7A; word-wrap: break-word;
         }
         /* Ensure block display for code within the demo slide list */
-         h3.subsection-header + p code {
+         h3.subsection-header + ul li code { /* Updated selector */
              display: block;
          }
 
@@ -170,7 +170,7 @@
         // --- Canvas Drawing Functions ---
         function drawTriangle(ctx, p1, p2, p3, fillColor, lineColor, lineWidth) { ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p3.x, p3.y); ctx.closePath(); if (fillColor) { ctx.fillStyle = fillColor; ctx.fill(); } if (lineColor && lineWidth > 0) { ctx.strokeStyle = lineColor; ctx.lineWidth = lineWidth; ctx.stroke(); } }
         function drawD20(ctx, centerX, centerY, hexRadius, colors) { const centerSize = hexRadius * (139 / 120); const lineWidth = 1; const hexVerts = []; for (let i = 0; i < 6; i++) { let angle = -Math.PI / 2 + i * Math.PI / 3; hexVerts.push({ x: centerX + hexRadius * Math.cos(angle), y: centerY + hexRadius * Math.sin(angle) }); } const h_c = centerSize * Math.sqrt(3) / 2; const r_c_in = h_c / 3; const r_c_out = h_c * 2 / 3; const vC1 = { x: centerX, y: centerY - r_c_out }; const vC2 = { x: centerX - centerSize / 2, y: centerY + r_c_in }; const vC3 = { x: centerX + centerSize / 2, y: centerY + r_c_in }; const vS1 = hexVerts[5]; const vS2 = hexVerts[1]; const vS3 = hexVerts[3]; drawTriangle(ctx, vC1, hexVerts[0], vS2, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC1, hexVerts[0], vS1, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC2, hexVerts[4], vS1, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC2, hexVerts[4], vS3, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC3, hexVerts[2], vS3, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC3, hexVerts[2], vS2, colors.ter, colors.line, lineWidth); drawTriangle(ctx, vC1, vC2, vS1, colors.sec, colors.line, lineWidth); drawTriangle(ctx, vC2, vC3, vS3, colors.sec, colors.line, lineWidth); drawTriangle(ctx, vC3, vC1, vS2, colors.sec, colors.line, lineWidth); drawTriangle(ctx, vC1, vC2, vC3, colors.center, colors.line, lineWidth); ctx.beginPath(); ctx.moveTo(hexVerts[0].x, hexVerts[0].y); for(let i=1; i<6; i++){ ctx.lineTo(hexVerts[i].x, hexVerts[i].y); } ctx.closePath(); ctx.lineWidth = lineWidth + 0.5; ctx.strokeStyle = colors.line; ctx.stroke(); }
-        function drawNumber(ctx, number, centerX, centerY, hexRadius) { const estimatedFontSize = Math.floor(hexRadius * 0.50); if (estimatedFontSize <= 5) return; ctx.fillStyle = '#FFFFFF'; ctx.strokeStyle = '#333'; ctx.lineWidth = 1; ctx.font = `bold ${estimatedFontSize}px Arial`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.shadowColor = 'rgba(0, 0, 0, 0.5)'; ctx.shadowBlur = 3; ctx.shadowOffsetX = 1; ctx.shadowOffsetY = 1; ctx.fillText(number.toString(), centerX, centerY); ctx.shadowColor = 'transparent'; ctx.strokeText(number.toString(), centerX, centerY); }
+        function drawNumber(ctx, number, centerX, centerY, hexRadius, fillColor) { const estimatedFontSize = Math.floor(hexRadius * 0.50); if (estimatedFontSize <= 5) return; ctx.fillStyle = fillColor; ctx.font = `bold ${estimatedFontSize}px Arial`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(number.toString(), centerX, centerY); }
         function drawD20Icon(ctx, centerX, centerY, hexRadius, colors) { const lineWidth = 1.5; const hexVerts = []; for (let i = 0; i < 6; i++) { let angle = -Math.PI / 2 + i * Math.PI / 3; hexVerts.push({ x: centerX + hexRadius * Math.cos(angle), y: centerY + hexRadius * Math.sin(angle) }); } ctx.beginPath(); ctx.moveTo(hexVerts[0].x, hexVerts[0].y); for(let i=1; i<6; i++){ ctx.lineTo(hexVerts[i].x, hexVerts[i].y); } ctx.closePath(); ctx.strokeStyle = colors.line; ctx.lineWidth = lineWidth; ctx.stroke(); }
         // --- End Canvas Drawing Functions ---
 
@@ -204,7 +204,7 @@
 
             // Slide 2: Key Themes Overview (Enriched)
             `<h2>Managing Your One-Shot Effectively</h2>
-            <h3>Key Themes</h3>
+             <h3>Key Themes</h3>
              <p>Running a one-shot presents unique challenges compared to a campaign. We'll focus on three key areas:</p>
              <ul>
                 <li><b>Pacing & Flow:</b> Ensuring the story progresses satisfyingly within the limited time.</li>
@@ -262,7 +262,7 @@
                 </li>
              </ul>`,
 
-            // Slide 6: Why Pre-made? (MODIFIED)
+            // Slide 6: Why Pre-made? (Split - Part 1) - MODIFIED
             `<h2>Why Go for a Pre-made One-Shot?</h2>
              <ul>
                 <li><b>Benefits:</b>
@@ -273,18 +273,28 @@
                         <li>Great way to learn adventure design by example.</li>
                     </ul>
                  </li>
-                <li><b>How to Read/Understand:</b>
-                    <ul>
-                        <li>Don't just read it like a novel! Actively break it down:</li>
-                        <li>Identify the core plot / objective.</li>
-                        <li>Note key NPCs, locations, and planned encounters.</li>
-                        <li>Look for potential pitfalls or player choice points.</li>
-                        <li>Highlight critical clues, secrets, and monster stat blocks.</li>
-                    </ul>
+                 <li><b>Downsides:</b>
+                     <ul>
+                        <li>Can sometimes feel restrictive or "on rails".</li>
+                        <li>Plot might be predictable if players have encountered it before.</li>
+                        <li>May not perfectly suit your group's specific interests or playstyle.</li>
+                        <li>Still might require significant adaptation or reskinning effort.</li>
+                        <li>Quality varies - some pre-mades are better than others!</li>
+                     </ul>
                  </li>
-             </ul>`,
+                 </ul>`,
 
-             // Slide 7: Example Overview (Condensed Hook, NPCs, Locations - CLASS ADDED)
+             // Slide 7: Dissecting a Pre-made (NEW - Split Part 2)
+             `<h2>Dissecting a Pre-made Adventure</h2>
+              <p>Don't just read it like a novel! Actively break it down:</p>
+              <ul>
+                 <li>Identify the core plot / objective.</li>
+                 <li>Note key NPCs, locations, and planned encounters.</li>
+                 <li>Look for potential pitfalls or player choice points.</li>
+                 <li>Highlight critical clues, secrets, and monster stat blocks.</li>
+              </ul>`,
+
+             // Slide 8: Example Overview (Condensed Hook, NPCs, Locations - CLASS ADDED) - Index Shifted
             `<h2>Example: "The Cat's Mother" Overview</h2>
              <p>Let's quickly introduce our example one-shot based on the provided materials:</p>
              <div>
@@ -306,7 +316,7 @@
                  </ul>
              </div>`,
 
-            // Slide 8: Demonstration Prep (Restructured to H3/UL/LI)
+            // Slide 9: Demonstration Prep (Restructured to H3/UL/LI) - Index Shifted
             `<h2>Demonstration: Prepping "The Cat's Mother"</h2>
              <p>Applying our prep steps to the example adventure:</p>
              <div>
@@ -333,7 +343,7 @@
                   <h1>Break - 10 min</h1>
               </div>`,
 
-            // Slide 10: Reskinning Intro (Simpler Examples Added - Safety Modified)
+            // Slide 11: Reskinning Intro (Simpler Examples Added - Safety Modified) - Index Shifted
             `<h2>Leveraging a Pre-made: Reskinning</h2>
              <h3>What is Reskinning?</h3>
              <p>Reskinning means taking the core mechanics, structure, pacing, and difficulty of an existing adventure (or elements like monsters, items, locations) and changing the theme and descriptions to make it fresh or fit your desired style.</p>
@@ -350,7 +360,7 @@
              </ul>
              <p>The mechanics stay the same, only the flavor changes!</p>`,
 
-            // Slide 11: Reskinning Example (Table)
+            // Slide 12: Reskinning Example (Table) - Index Shifted
             `<h2>Reskinning Example: Adventure</h2>
              <p>Comparing original elements ("The Cat's Mother") to a possible full reskin:</p>
              <table class="reskin-table">
@@ -395,7 +405,7 @@
                </tbody>
              </table>`,
 
-            // Slide 12: Reskinning Brainstorm (Meta Text Adjusted)
+            // Slide 13: Reskinning Brainstorm (Meta Text Adjusted) - Index Shifted
             `<h2>Reskinning: Group Brainstorm</h2>
              <p>Let's brainstorm some reskinning ideas together based on "The Cat's Mother":</p>
              <ul>
@@ -404,7 +414,7 @@
                  <li>Prompt 3: In that new setting, what could the 'Polar Bear Rescue' hook become?</li>
              </ul>`,
 
-            // Slide 13: Practical Exercise (Aligned with Worksheet)
+            // Slide 14: Practical Exercise (Aligned with Worksheet) - Index Shifted
             `<h2>Practical Exercise: Start Your Own Reskin</h2>
              <ul>
                  <li><b>Goal:</b> Begin outlining your own one-shot reskin using "The Cat's Mother" as a structural base.</li>
@@ -419,7 +429,7 @@
                  <li>(Focus on capturing core ideas, not perfection!)</li>
              </ul>`,
 
-            // Slide 14: Wrap-Up (MODIFIED)
+            // Slide 15: Wrap-Up (MODIFIED) - Index Shifted
             `<div class="title-slide">
                  <h2 class="no-icon">Wrap-Up & Closing</h2>
 
@@ -427,7 +437,9 @@
 
                  <p style="margin-top:20px;"><b>Questions & Discussion?</b></p>
 
-                 <p>Feel free to reach out to me (Patty) on our Discord server!</p> <canvas id="wrapupCanvasD20" width="250" height="180" style="margin-top: 25px; margin-bottom: 25px; order: initial;"></canvas>
+                 <p>Feel free to reach out to me (Patty) on our Discord server!</p>
+
+                 <canvas id="wrapupCanvasD20" width="250" height="180" style="margin-top: 25px; margin-bottom: 25px; order: initial;"></canvas>
 
                  <p style="font-size: 1.8em; font-weight: bold; color: #2C5E7A; margin-top: 10px;">Thank You!</p>
                  <p style="margin-top: 5px; font-style: italic;">Go forth and run great one-shots!</p>
@@ -460,12 +472,12 @@
                     slideContentElement.scrollTop = 0;
                     updateNavButtons();
 
-                    // --- Execute Drawing Logic for Slides 0, 9, and 14 ---
-                    if (index === 0 || index === 9 || index === 14) { // Title (0), Break (9), Wrap-up (14)
+                    // --- Execute Drawing Logic for Slides 0, 10, and 15 --- CORRECTED INDICES
+                    if (index === 0 || index === 10 || index === 15) { // Title (0), Break (10), Wrap-up (15)
                         let canvasId;
                         if (index === 0) canvasId = 'titleCanvasD20';
-                        else if (index === 9) canvasId = 'breakCanvasD20';
-                        else if (index === 14) canvasId = 'wrapupCanvasD20';
+                        else if (index === 10) canvasId = 'breakCanvasD20'; // Index updated
+                        else if (index === 15) canvasId = 'wrapupCanvasD20'; // Index updated
 
                         const targetCanvas = document.getElementById(canvasId);
                         if (targetCanvas) {
@@ -481,10 +493,15 @@
                             const die3_x = cX + die1_r * 0.9; const die3_y = cY + canvasH * 0.1;
                              targetCtx.clearRect(0, 0, canvasW, canvasH);
                             let num2 = Math.floor(Math.random() * 19) + 1;
-                            drawD20(targetCtx, die2_x, die2_y, die2_r, themePalette2); drawNumber(targetCtx, num2, die2_x, die2_y, die2_r);
+                            drawD20(targetCtx, die2_x, die2_y, die2_r, themePalette2);
+                            drawNumber(targetCtx, num2, die2_x, die2_y, die2_r, themePalette2.sec);
+
                             let num3 = Math.floor(Math.random() * 19) + 1;
-                            drawD20(targetCtx, die3_x, die3_y, die3_r, themePalette3); drawNumber(targetCtx, num3, die3_x, die3_y, die3_r);
-                            drawD20(targetCtx, die1_x, die1_y, die1_r, themePalette1); drawNumber(targetCtx, 20, die1_x, die1_y, die1_r);
+                            drawD20(targetCtx, die3_x, die3_y, die3_r, themePalette3);
+                            drawNumber(targetCtx, num3, die3_x, die3_y, die3_r, themePalette3.sec);
+
+                            drawD20(targetCtx, die1_x, die1_y, die1_r, themePalette1);
+                            drawNumber(targetCtx, 20, die1_x, die1_y, die1_r, themePalette1.sec);
                         }
                     }
                     // --- End Drawing Logic ---
